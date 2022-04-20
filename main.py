@@ -1,5 +1,7 @@
 import json
 import os
+import re
+
 
 TAG_NAME = os.getenv("INPUT_TAG_NAME").split("refs/tags/")[1]
 PATH_TO_CHANGELOG = os.getenv("INPUT_CHANGELOG")
@@ -16,12 +18,13 @@ def get_changelog_lines():
         all_lines = read_file.readlines()
         changelog_lines = []
         read_line = False
+        
         for line in all_lines:
-            if f"## {TAG_NAME}" or f"## [{TAG_NAME}]" or f"### {TAG_NAME}" or f"### [{TAG_NAME}]" in line:
+            if line.find(f"## {TAG_NAME}") != -1 or line.find(f"## [{TAG_NAME}]") != -1 or line.find(f"### {TAG_NAME}") != -1 or line.find(f"### [{TAG_NAME}]") != -1:
                 read_line = True
                 continue
             if read_line:
-                if f"## {TAG_NAME}" or f"## [{TAG_NAME}]" or f"### {TAG_NAME}" or f"### [{TAG_NAME}]" in line:
+                if re.search(r'^###?\s\[?\d.\d.\d', line):
                     break
                 else:
                     changelog_lines.append(line)
