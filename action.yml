@@ -1,0 +1,19 @@
+name: 'Get Release Notes'
+description: 'Get release notes for Changelog from standatd-version'
+inputs:
+  tag_name:
+    description: "Name of the tag whose release notes we are looking for (must have structure 'refs/tags/{tag_name}')"
+    required: true
+  changelog:
+    description: "Path to changelog file to be parsed"
+    required: true
+outputs:
+  notes:
+    description: "The serialized dict of the notes. Access the notes from the notes key of the dict"
+runs:
+  using: "docker"
+  image: "Dockerfile"
+branding:
+  icon: 'link'
+  color: 'green'
+
