@@ -1,4 +1,4 @@
-name: 'Get Release Notes'
+name: 'Get Release Notes from standard-version changelog'
 description: 'Get release notes for Changelog from standatd-version'
 inputs:
   tag_name:
