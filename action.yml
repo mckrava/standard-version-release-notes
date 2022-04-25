@@ -2,11 +2,19 @@ name: 'Get Release Notes from standard-version changelog'
 description: 'Get release notes for Changelog from standatd-version'
 inputs:
   tag_name:
-    description: "Name of the tag whose release notes we are looking for (must have structure 'refs/tags/{tag_name}')"
+    description: "Name of the tag whose release notes we are looking for (can have structure either 'refs/tags/{tag_name}' or 'tag_name')"
     required: true
   changelog:
     description: "Path to changelog file to be parsed"
     required: true
+  tag_name_prefix:
+    description: "Tag name prefix"
+    required: false
+    default: "v"
+  tag_name_ref_view:
+    description: "Tag name 'refs' structure or exact tag name ('refs/tags/vX.X.X' or 'vX.X.X')"
+    required: false
+    default: "false"
 outputs:
   notes:
     description: "The serialized dict of the notes. Access the notes from the notes key of the dict"

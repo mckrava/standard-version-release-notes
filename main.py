@@ -3,8 +3,17 @@ import os
 import re
 
 
-TAG_NAME = os.getenv("INPUT_TAG_NAME").split("refs/tags/")[1]
+TAG_NAME = os.getenv("INPUT_TAG_NAME")
+TAG_NAME_PREFIX = os.getenv("INPUT_TAG_NAME_PREFIX")
+TAG_NAME_REF_VIEW = os.getenv("INPUT_TAG_NAME_REF_VIEW")
 PATH_TO_CHANGELOG = os.getenv("INPUT_CHANGELOG")
+
+if TAG_NAME_REF_VIEW == "true":
+    TAG_NAME = TAG_NAME.split("refs/tags/")[1]
+
+# We need remove prefix because changelog contains version headers without prefix
+if TAG_NAME_PREFIX != '':
+    TAG_NAME = TAG_NAME.replace(TAG_NAME_PREFIX, '', 1)
 
 
 def get_changelog_lines():

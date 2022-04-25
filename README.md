@@ -74,9 +74,10 @@ jobs:
         shell: bash
       - name: Get notes
         id: generate_notes
-        uses: mckrava/standard-version-release-notes@master
+        uses: mckrava/standard-version-release-notes@v1.1.0
         with:
           tag_name: ${{ github.ref }}
+          tag_name_ref_view: true
           changelog: CHANGELOG.md
       - name: Create Release
         id: create_release
@@ -93,13 +94,15 @@ jobs:
 
 ## Input Variables
 
-| Name                 | Description                                                                                                                                                | Default     |
-| -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| `tag_name`           | Name of the tag whose release notes we are looking for                                                                                                     | -           |
-| `changelog`          | Path to changelog file                                                                                                                                     | -       |
+| Name                | Description                                            | Default |
+| ------------------- | ------------------------------------------------------ | ------- |
+| `tag_name`          | Name of the tag whose release notes we are looking for | -       |
+| `changelog`         | Path to changelog file                                 | -       |
+| `tag_name_prefix`   | Tag name prefix                                        | "v"     |
+| `tag_name_ref_view` | Does tag name have such view as `refs/tags/{tag_name}` | false   |
 
 ## Output Variables
 
-| Name                 | Description                                                                                                                                                | Default     |
-| -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| `notes`              | Serialized dictionary as string containing the `notes` key which hosts the list of lines that hold data for the aforementioned tag                         | -           |
+| Name    | Description                                                                                                                        | Default |
+| ------- | ---------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| `notes` | Serialized dictionary as string containing the `notes` key which hosts the list of lines that hold data for the aforementioned tag | -       |
